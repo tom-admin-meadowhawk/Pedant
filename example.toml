@@ -1,0 +1,104 @@
+version = 1
+
+
+# =============================================================================
+# Repository: sbom-tool
+# =============================================================================
+
+[[repo]]
+name = "sbom-tool"
+path = "C:\\dev\\sbom-tool"
+
+[[repo.tool]]
+name = "clippy"
+command = "cargo clippy --all-targets --all-features"
+
+[[repo.tool]]
+name = "cargo-audit"
+command = "cargo audit"
+
+
+# -----------------------------------------------------------------------------
+# Exceptions
+# -----------------------------------------------------------------------------
+
+[[repo.exception]]
+name = "vendor-api-has-many-arguments"
+tool = "clippy"
+rule = "clippy::too_many_arguments"
+reason = "Signature intentionally mirrors the upstream vendor API."
+expires = 2027-04-30
+hash = "sha256:<generated-hash>"
+
+[repo.exception.location]
+path = "src/vendor/api.rs"
+symbol = "VendorClient::execute"
+
+
+[[repo.exception]]
+name = "test-preconditions-may-unwrap"
+tool = "clippy"
+rule = "clippy::unwrap_used"
+reason = "Panicking on failed preconditions is intentional in integration tests."
+expires = 2027-04-30
+hash = "sha256:<generated-hash>"
+
+[repo.exception.location]
+path = "tests/**"
+
+
+[[repo.exception]]
+name = "validated-payload-length-cast"
+tool = "clippy"
+rule = "clippy::cast_possible_truncation"
+reason = "Protocol validates the payload length is within u16 range before this cast."
+expires = 2027-01-31
+hash = "sha256:<generated-hash>"
+
+[repo.exception.location]
+path = "src/protocol/header.rs"
+symbol = "Header::encode"
+pattern = "payload.len() as u16"
+
+
+[[repo.exception]]
+name = "debug-diagnostics-may-unwrap"
+tool = "clippy"
+rule = "clippy::unwrap_used"
+reason = "Intentional in the debug-only diagnostic initialization path."
+expires = 2027-04-30
+build = "debug"
+hash = "sha256:<generated-hash>"
+
+[repo.exception.location]
+path = "src/debug/diagnostics.rs"
+symbol = "Diagnostics::initialize"
+
+
+# =============================================================================
+# Repository: log-viewer
+# =============================================================================
+
+[[repo]]
+name = "log-viewer"
+path = "C:\\dev\\log-viewer"
+
+[[repo.tool]]
+name = "eslint"
+command = "npm run lint"
+
+[[repo.tool]]
+name = "semgrep"
+command = "semgrep scan --config auto ."
+
+
+[[repo.exception]]
+name = "legacy-import-allows-dynamic-properties"
+tool = "eslint"
+rule = "@typescript-eslint/no-explicit-any"
+reason = "External legacy log records may contain arbitrary structured properties."
+expires = 2027-06-30
+hash = "sha256:<generated-hash>"
+
+[repo.exception.location]
+path = "src/import/legacy/**"

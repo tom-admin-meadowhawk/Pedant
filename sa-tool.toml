@@ -1,0 +1,422 @@
+version = 1
+
+# Commands run with the repository root (`path`) as the working directory.
+#
+# No exceptions are defined yet. Add `[[repo.exception]]` tables under the
+# relevant repository as needed (see static-analysis-config-spec.md).
+
+
+# =============================================================================
+# Rust
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Repository: doctor-directory
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "doctor-directory"
+path = "C:\\Users\\tom.admin\\source\\repos\\doctor-directory"
+
+[[repo.tool]]
+name = "clippy"
+command = "cargo clippy --all-targets"
+
+# deny.toml's license allow-list is currently empty, so `licenses` rejects every crate.
+[[repo.tool]]
+name = "cargo-deny"
+command = "cargo deny check"
+
+[[repo.tool]]
+name = "cargo-audit"
+command = "cargo audit"
+
+
+# -----------------------------------------------------------------------------
+# Repository: extractor-xl
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "extractor-xl"
+path = "C:\\Users\\tom.admin\\source\\repos\\extractor-xl"
+
+[[repo.tool]]
+name = "clippy"
+command = "cargo clippy --all-targets"
+
+[[repo.tool]]
+name = "cargo-audit"
+command = "cargo audit"
+
+
+# -----------------------------------------------------------------------------
+# Repository: graph-utils
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "graph-utils"
+path = "C:\\Users\\tom.admin\\source\\repos\\graph-utils"
+
+[[repo.tool]]
+name = "clippy"
+command = "cargo clippy --all-targets"
+
+[[repo.tool]]
+name = "cargo-deny"
+command = "cargo deny check"
+
+[[repo.tool]]
+name = "cargo-audit"
+command = "cargo audit"
+
+
+# -----------------------------------------------------------------------------
+# Repository: log-tools
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "log-tools"
+path = "C:\\Users\\tom.admin\\source\\repos\\log-tools"
+
+[[repo.tool]]
+name = "clippy"
+command = "cargo clippy --all-targets"
+
+[[repo.tool]]
+name = "cargo-audit"
+command = "cargo audit"
+
+
+# -----------------------------------------------------------------------------
+# Repository: transfer_rust
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "transfer_rust"
+path = "C:\\Users\\tom.admin\\source\\repos\\transfer_rust"
+
+# Matches CI (build_and_test.yml). lib.rs denies clippy::unwrap_used and
+# clippy::expect_used outside tests.
+[[repo.tool]]
+name = "clippy"
+command = "cargo clippy -p transfer_rust --lib"
+
+[[repo.tool]]
+name = "cargo-deny"
+command = "cargo deny check"
+
+[[repo.tool]]
+name = "cargo-audit"
+command = "cargo audit"
+
+
+# =============================================================================
+# Rust + TypeScript
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Repository: log-view-2 (Tauri app: TypeScript window, Rust backend in src-tauri)
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "log-view-2"
+path = "C:\\Users\\tom.admin\\source\\repos\\log-view-2"
+
+# `npm run typecheck` and `npm run lint` are the CI checks.
+[[repo.tool]]
+name = "tsc"
+command = "npm run typecheck"
+
+[[repo.tool]]
+name = "oxlint"
+command = "npm run lint"
+
+[[repo.tool]]
+name = "npm-audit"
+command = "npm audit"
+
+[[repo.tool]]
+name = "clippy"
+command = "cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets"
+
+[[repo.tool]]
+name = "cargo-audit"
+command = "cargo audit --file src-tauri/Cargo.lock"
+
+
+# =============================================================================
+# TypeScript / JavaScript
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Repository: auditor
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "auditor"
+path = "C:\\Users\\tom.admin\\source\\repos\\auditor"
+
+[[repo.tool]]
+name = "tsc"
+command = "npm run typecheck"
+
+[[repo.tool]]
+name = "oxlint"
+command = "npm run lint"
+
+[[repo.tool]]
+name = "npm-audit"
+command = "npm audit"
+
+
+# -----------------------------------------------------------------------------
+# Repository: MHB-hub (SPFx)
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "MHB-hub"
+path = "C:\\Users\\tom.admin\\source\\repos\\MHB-hub"
+
+[[repo.tool]]
+name = "tsc"
+command = "npx tsc --noEmit"
+
+# No standalone `npm run lint`; ESLint otherwise only runs as part of `heft build`.
+[[repo.tool]]
+name = "eslint"
+command = "npx eslint src"
+
+[[repo.tool]]
+name = "npm-audit"
+command = "npm audit"
+
+
+# -----------------------------------------------------------------------------
+# Repository: game-of-chems (SPFx)
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "game-of-chems"
+path = "C:\\Users\\tom.admin\\source\\repos\\game-of-chems"
+
+[[repo.tool]]
+name = "tsc"
+command = "npx tsc --noEmit"
+
+[[repo.tool]]
+name = "eslint"
+command = "npx eslint src"
+
+[[repo.tool]]
+name = "npm-audit"
+command = "npm audit"
+
+
+# -----------------------------------------------------------------------------
+# Repository: NewmanProjection2 (SPFx)
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "NewmanProjection2"
+path = "C:\\Users\\tom.admin\\source\\repos\\NewmanProjection2"
+
+[[repo.tool]]
+name = "tsc"
+command = "npx tsc --noEmit"
+
+[[repo.tool]]
+name = "eslint"
+command = "npx eslint src"
+
+[[repo.tool]]
+name = "npm-audit"
+command = "npm audit"
+
+
+# -----------------------------------------------------------------------------
+# Repository: NewmanProjection (older gulp-based SPFx; no ESLint config)
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "NewmanProjection"
+path = "C:\\Users\\tom.admin\\source\\repos\\NewmanProjection"
+
+[[repo.tool]]
+name = "tsc"
+command = "npx tsc --noEmit"
+
+[[repo.tool]]
+name = "npm-audit"
+command = "npm audit"
+
+
+# =============================================================================
+# .NET
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Repository: TransferUI (C#, ASP.NET, net10.0)
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "TransferUI"
+path = "C:\\Users\\tom.admin\\source\\repos\\TransferUI"
+
+# Compiler warnings plus the SDK's built-in analyzers.
+[[repo.tool]]
+name = "dotnet-build"
+command = "dotnet build TransferUI.slnx -c Release --no-incremental"
+
+[[repo.tool]]
+name = "dotnet-format-analyzers"
+command = "dotnet format analyzers TransferUI.slnx --verify-no-changes --severity warn"
+
+[[repo.tool]]
+name = "dotnet-vulnerable-packages"
+command = "dotnet list TransferUI.slnx package --vulnerable --include-transitive"
+
+
+# -----------------------------------------------------------------------------
+# Repository: Meadowhawk-Creator (C#, WinUI)
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "Meadowhawk-Creator"
+path = "C:\\Users\\tom.admin\\source\\repos\\Meadowhawk-Creator"
+
+[[repo.tool]]
+name = "dotnet-build"
+command = "dotnet build \"Meadowhawk Creator.sln\" -c Release --no-incremental"
+
+[[repo.tool]]
+name = "dotnet-format-analyzers"
+command = "dotnet format analyzers \"Meadowhawk Creator.sln\" --verify-no-changes --severity warn"
+
+[[repo.tool]]
+name = "dotnet-vulnerable-packages"
+command = "dotnet list \"Meadowhawk Creator.sln\" package --vulnerable --include-transitive"
+
+
+# -----------------------------------------------------------------------------
+# Repository: Data-Recovery (C# Scanner under recovery/Scanner)
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "Data-Recovery"
+path = "C:\\Users\\tom.admin\\source\\repos\\Data-Recovery"
+
+[[repo.tool]]
+name = "dotnet-build"
+command = "dotnet build recovery/Scanner/Scanner.slnx -c Release --no-incremental"
+
+[[repo.tool]]
+name = "dotnet-format-analyzers"
+command = "dotnet format analyzers recovery/Scanner/Scanner.slnx --verify-no-changes --severity warn"
+
+[[repo.tool]]
+name = "dotnet-vulnerable-packages"
+command = "dotnet list recovery/Scanner/Scanner.slnx package --vulnerable --include-transitive"
+
+# Python scripts under analysis/ (no pyproject.toml, so ruff's default rules apply).
+[[repo.tool]]
+name = "ruff"
+command = "ruff check ."
+
+
+# -----------------------------------------------------------------------------
+# Repository: Webhooks (F#, net10.0)
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "Webhooks"
+path = "C:\\Users\\tom.admin\\source\\repos\\Webhooks"
+
+# F# compiler warnings (projects set WarningLevel 4); `dotnet format` has no F# analyzer support.
+[[repo.tool]]
+name = "dotnet-build"
+command = "dotnet build Webhooks.slnx -c Release --no-incremental"
+
+[[repo.tool]]
+name = "fsharplint"
+command = "dotnet fsharplint lint Webhooks.slnx"
+
+[[repo.tool]]
+name = "dotnet-vulnerable-packages"
+command = "dotnet list Webhooks.slnx package --vulnerable --include-transitive"
+
+
+# -----------------------------------------------------------------------------
+# Repository: FSharpUtils (F#, net10.0 and net48)
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "FSharpUtils"
+path = "C:\\Users\\tom.admin\\source\\repos\\FSharpUtils"
+
+[[repo.tool]]
+name = "dotnet-build"
+command = "dotnet build FSharpUtils.slnx -c Release --no-incremental"
+
+[[repo.tool]]
+name = "dotnet-vulnerable-packages"
+command = "dotnet list FSharpUtils.slnx package --vulnerable --include-transitive"
+
+[[repo.tool]]
+name = "fsharplint"
+command = "dotnet fsharplint lint FSharpUtils.slnx"
+
+
+# -----------------------------------------------------------------------------
+# Repository: MeadowhawkUtils2 (VSTO Excel add-in, F# libraries, .NET Framework 4.8)
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "MeadowhawkUtils2"
+path = "C:\\Users\\tom.admin\\source\\repos\\MeadowhawkUtils2"
+
+# The VSTO project import requires MSBuild; `dotnet build` does not work here.
+# Building the add-in also builds every F# library it references.
+[[repo.tool]]
+name = "msbuild"
+command = "msbuild MeadowhawkUtils2\\MeadowhawkUtils2.csproj /t:Rebuild /p:Configuration=Release"
+
+# Lints the F# projects; the solution's C# projects are not linted by FSharpLint.
+[[repo.tool]]
+name = "fsharplint"
+command = "dotnet fsharplint lint MeadowhawkUtils2.slnx"
+
+
+# =============================================================================
+# Julia
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Repository: MHBData
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "MHBData"
+path = "C:\\Users\\tom.admin\\source\\repos\\MHBData"
+
+# `target_modules` limits reports to MHBData's own code (not Makie, DataFrames, etc.).
+# JET prints "No errors detected" when clean.
+[[repo.tool]]
+name = "jet"
+command = 'julia --project=. -e "using JET, MHBData; println(report_package(MHBData; target_modules=(MHBData,), toplevel_logger=nothing))"'
+
+
+# =============================================================================
+# Python
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Repository: Transthyretin (single script, codon_align.py; biopython_env is gitignored)
+# -----------------------------------------------------------------------------
+
+[[repo]]
+name = "Transthyretin"
+path = "C:\\Users\\tom.admin\\source\\repos\\Transthyretin"
+
+[[repo.tool]]
+name = "ruff"
+command = "ruff check ."
